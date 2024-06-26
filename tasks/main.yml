@@ -1,0 +1,26 @@
+---
+# tasks file for dev
+# tasks:
+    - name: Update the apt package cache
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install apache httpd
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Ensure Apache is started and enabled
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: yes
+
